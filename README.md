@@ -17,3 +17,12 @@ if panel require input auth field:
 + Server: `mysql`
 + Username: `root`
 + Password: `password`
+
+
+## pictures
+### ecommerce
+![ecommerce-er](assets/ecommerce-er.png)
+![ecommerce-design](assets/ecommerce-design.png)
+### hotel
+![hotel-er](assets/hotel-er.png)
+![hotel-design](assets/hotel-design.png)

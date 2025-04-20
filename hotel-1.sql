@@ -1,7 +1,7 @@
 CREATE DATABASE IF NOT EXISTS hotel;
 USE hotel;
 
-CREATE TABLE Hotels
+CREATE TABLE hotels
 (
     id          INT AUTO_INCREMENT PRIMARY KEY,
     name        VARCHAR(255) NOT NULL,
@@ -18,7 +18,7 @@ CREATE TABLE Hotels
 );
 
 
-CREATE TABLE Rooms
+CREATE TABLE rooms
 (
     id            INT AUTO_INCREMENT PRIMARY KEY,
     hotel_id      INT,
@@ -28,21 +28,21 @@ CREATE TABLE Rooms
     max_occupancy INT            NOT NULL, 
     availability  BOOLEAN   DEFAULT TRUE,  
     created_at    TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (hotel_id) REFERENCES Hotels (id) ON DELETE CASCADE
+    FOREIGN KEY (hotel_id) REFERENCES hotels (id) ON DELETE CASCADE
 );
 
 
-CREATE TABLE Hotel_Amenities
+CREATE TABLE hotel_amenities
 (
     id           INT AUTO_INCREMENT PRIMARY KEY,
     hotel_id     INT,
     amenity_name VARCHAR(255) NOT NULL,
     description  TEXT,
-    FOREIGN KEY (hotel_id) REFERENCES Hotels (id) ON DELETE CASCADE
+    FOREIGN KEY (hotel_id) REFERENCES hotels (id) ON DELETE CASCADE
 );
 
 
-CREATE TABLE Customers
+CREATE TABLE customers
 (
     id         INT AUTO_INCREMENT PRIMARY KEY,
     name       VARCHAR(255)        NOT NULL,
@@ -52,7 +52,7 @@ CREATE TABLE Customers
 );
 
 
-CREATE TABLE Reservations
+CREATE TABLE reservations
 (
     id             INT AUTO_INCREMENT PRIMARY KEY,
     customer_id    INT,
@@ -62,17 +62,17 @@ CREATE TABLE Reservations
     total_price    DECIMAL(10, 2) NOT NULL,
     status         ENUM ('pending', 'confirmed', 'cancelled') DEFAULT 'pending', 
     created_at     TIMESTAMP                                  DEFAULT CURRENT_TIMESTAMP,
-    FOREIGN KEY (customer_id) REFERENCES Customers (id),
-    FOREIGN KEY (room_id) REFERENCES Rooms (id)
+    FOREIGN KEY (customer_id) REFERENCES customers (id),
+    FOREIGN KEY (room_id) REFERENCES rooms (id)
 );
 
 
-CREATE TABLE Payments
+CREATE TABLE payments
 (
     id             INT AUTO_INCREMENT PRIMARY KEY,
     reservation_id INT,
     amount         DECIMAL(10, 2) NOT NULL,
     payment_date   TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     payment_method VARCHAR(50),
-    FOREIGN KEY (reservation_id) REFERENCES Reservations (id)
+    FOREIGN KEY (reservation_id) REFERENCES reservations (id)
 );
